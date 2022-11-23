@@ -17,7 +17,7 @@ module NamedAddr::basic_coin {
 
     /// Publish an empty balance resource under `account`'s address. This function must be called
     /// before minting or transferring to this account
-    public fun publish_balance(account: &signer) {
+    public entry fun publish_balance(account: &signer) {
         let empty_coin = Coin { value: 0 };
         assert!(!exists<Balance>(signer::address_of(account)), EALREADY_HAS_BALANCE);
         move_to(account, Balance { coin: empty_coin });
