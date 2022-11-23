@@ -2,3 +2,5 @@ build
 */build
 */.idea
 .idea
+node_moddules
+*/node_modules
