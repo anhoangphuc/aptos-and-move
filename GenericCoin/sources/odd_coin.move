@@ -9,13 +9,13 @@ module GenericAddress::odd_coin {
     const ENOT_ODD: u64 = 0;
     const ENOT_MODULE_OWNER: u64 = 1;
 
-    public fun set_and_mint(account: &signer, module_owner: &signer, amount: u64) {
+    public entry fun set_and_mint(account: &signer, module_owner: &signer, amount: u64) {
         generic_coin::publish_balance<OddCoin>(account);
         assert!(signer::address_of(module_owner) == MODULE_OWNER, ENOT_MODULE_OWNER);
         generic_coin::mint<OddCoin>(signer::address_of(account), amount);
     }
 
-    public fun transfer(from: &signer, to: address, amount: u64) {
+    public entry fun transfer(from: &signer, to: address, amount: u64) {
         assert!(amount % 2 == 1, ENOT_ODD);
         generic_coin::transfer<OddCoin>(from, to, amount);
     }
