@@ -1,0 +1,10 @@
+[package]
+name = 'HackCoin'
+version = '1.0.0'
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'main'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[addresses]
+HackCoin = "0xac411b3d35ec86f609f0c15abcc0521c343f86a3fbcdd3bb2400d6a9fd7f2f35"
