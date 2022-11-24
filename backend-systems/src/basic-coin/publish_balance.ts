@@ -35,8 +35,12 @@ export async function publishBalance(account: AptosAccount) {
     }
 
 }
-(async function () {
+async function main() {
     const account = await loadRandomAccount();
     console.log(`Account is ${account.address()}`)
     await publishBalance(account);
-})()
+}
+
+if (require.main === module) {
+    main();
+}
