@@ -31,6 +31,9 @@ export async function transfer(accountFrom: AptosAccount, accountTo: AptosAccoun
     // Check resource, exist now
     resource = await client.getAccountResource(accountTo.address(), balanceResource);
     console.log(`Balance of account ${accountTo.address()} is ${JSON.stringify(resource['data'])}`);
+
+    resource = await client.getAccountResource(accountFrom.address(), balanceResource);
+    console.log(`Balance of account ${accountFrom.address()} is ${JSON.stringify(resource['data'])}`);
     console.log(`--------------------------------------------------`);
 }
 
