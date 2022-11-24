@@ -22,7 +22,7 @@ export async function transfer(from: AptosAccount, to: AptosAccount, amount: num
     console.log(`--------------------------------------------------`);
 }
 
-(async function main() {
+async function main() {
     const from = await loadRandomAccount();
     const to = await loadRandomAccount();
     const moduleAccount = await loadGenericAccount();
@@ -30,4 +30,8 @@ export async function transfer(from: AptosAccount, to: AptosAccount, amount: num
     await setAndMint(to, moduleAccount, 100);
     await transfer(from, to, 21);
     await transfer(from, to, 20);
-})()
+}
+
+if (require.main === module) {
+    main();
+}

@@ -53,6 +53,7 @@ export async function setAndMint(account: AptosAccount, moduleAccount: AptosAcco
     const bcsTxn = BCS.bcsToBytes(new SignedTransaction(rawTxn, multiAgentAuthenticator));
     const transactionRes = await client.submitSignedBCSTransaction(bcsTxn);
     await client.waitForTransaction(transactionRes.hash);
+    console.log(`--------------------------------------------------`);
 }
 
 async function main() {
