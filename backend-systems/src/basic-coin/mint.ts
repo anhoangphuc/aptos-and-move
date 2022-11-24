@@ -5,9 +5,8 @@ import {client, DEPLOYED_ADDRESS} from "../constants";
 import {publishBalance} from "./publish_balance";
 import {loadDeployedAccount, loadRandomAccount} from "../utils";
 
-export async function mint(account: AptosAccount) {
+export async function mint(account: AptosAccount, amount: number) {
     const deployedAccount = await loadDeployedAccount();
-    await publishBalance(account);
     const balanceResource = `${DEPLOYED_ADDRESS}::basic_coin::Balance`;
     let resource = await client.getAccountResource(account.address(), balanceResource);
     console.log(`Balance of account ${account.address()} is ${JSON.stringify(resource['data'])}`);
@@ -16,7 +15,7 @@ export async function mint(account: AptosAccount) {
     const payload = builder.buildTransactionPayload(
         `${DEPLOYED_ADDRESS}::basic_coin::mint`,
         [],
-        [account.address(), 100000000],
+        [account.address(), amount],
     );
 
     // generate raw transaction
@@ -33,7 +32,8 @@ export async function mint(account: AptosAccount) {
 
 async function main() {
     const account = await loadRandomAccount();
-    await mint(account);
+    await publishBalance(account);
+    await mint(account, 100000000);
 }
 
 if (require.main === module) {
