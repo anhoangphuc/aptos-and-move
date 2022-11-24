@@ -8,12 +8,12 @@ module GenericAddress::odd_coin {
 
     public fun set_and_mint(account: &signer, amount: u64) {
         generic_coin::publish_balance<OddCoin>(account);
-        generic_coin::mint<OddCoin>(signer::address_of(account), amount, OddCoin {});
+        generic_coin::mint<OddCoin>(signer::address_of(account), amount);
     }
 
     public fun transfer(from: &signer, to: address, amount: u64) {
         assert!(amount % 2 == 1, ENOT_ODD);
-        generic_coin::transfer<OddCoin>(from, to, amount, OddCoin {});
+        generic_coin::transfer<OddCoin>(from, to, amount);
     }
 
     #[test(from = @0x42, to = @0x10)]

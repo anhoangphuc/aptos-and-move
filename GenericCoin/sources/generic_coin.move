@@ -18,11 +18,11 @@ module GenericAddress::generic_coin {
         move_to(account, Balance<CoinType> { coin: empty_coin });
     }
 
-    public fun mint<CoinType: drop>(mint_addr: address, amount: u64, _withness: CoinType) acquires Balance {
+    public fun mint<CoinType>(mint_addr: address, amount: u64) acquires Balance {
         deposit<CoinType>(mint_addr, Coin<CoinType> { value: amount });
     }
 
-    public fun transfer<CoinType: drop>(from: &signer, to: address, amount: u64, _witness: CoinType) acquires Balance {
+    public fun transfer<CoinType>(from: &signer, to: address, amount: u64) acquires Balance {
         let check = withdraw<CoinType>(signer::address_of(from), amount);
         deposit<CoinType>(to, check);
     }
