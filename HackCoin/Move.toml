@@ -6,5 +6,11 @@ git = 'https://github.com/aptos-labs/aptos-core.git'
 rev = 'main'
 subdir = 'aptos-move/framework/aptos-framework'
 
+[dependencies.GenericCoin]
+git = 'https://github.com/anhoangphuc/aptos-and-move.git'
+rev = 'main'
+subdir = './GenericCoin'
+
 [addresses]
 HackCoin = "0xac411b3d35ec86f609f0c15abcc0521c343f86a3fbcdd3bb2400d6a9fd7f2f35"
+GenericAddress = "0xaa9d48ab497d61f8251072c82112e2adbe9748c5de1ad168664b402651a601c2"
