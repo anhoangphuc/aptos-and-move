@@ -28,7 +28,7 @@ module NamedAddr::basic_coin {
     }
 
     /// Mint `amount` tokens to `mint_addr`. Mint must be approved by the module owner
-    public fun mint(module_owner: &signer, mint_addr: address, amount: u64) acquires Balance {
+    public entry fun mint(module_owner: &signer, mint_addr: address, amount: u64) acquires Balance {
         assert!(signer::address_of(module_owner) == MODULE_OWNER, ENOT_MODULE_OWNER);
         deposit(mint_addr, Coin { value: amount });
     }
