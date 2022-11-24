@@ -6,6 +6,7 @@ import {publishBalance} from "./publish_balance";
 import {loadDeployedAccount, loadRandomAccount} from "../utils";
 
 export async function mint(account: AptosAccount, amount: number) {
+    console.log(`Mint ${amount} to account ${account.address()}`);
     const deployedAccount = await loadDeployedAccount();
     const balanceResource = `${DEPLOYED_ADDRESS}::basic_coin::Balance`;
     let resource = await client.getAccountResource(account.address(), balanceResource);
@@ -28,6 +29,7 @@ export async function mint(account: AptosAccount, amount: number) {
     // Check resource, exist now
     resource = await client.getAccountResource(account.address(), balanceResource);
     console.log(`Balance of account ${account.address()} is ${JSON.stringify(resource['data'])}`);
+    console.log(`--------------------------------------------------`);
 }
 
 async function main() {

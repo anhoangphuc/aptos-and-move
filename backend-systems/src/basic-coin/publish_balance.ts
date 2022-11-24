@@ -5,6 +5,7 @@ import path from "path";
 import { loadRandomAccount} from "../utils";
 
 export async function publishBalance(account: AptosAccount) {
+    console.log(`Publish balance for account ${account.address()}`);
     const publishBalanceABIs = fs.readFileSync(path.join(__dirname, "./abis/publish_balance.abi"), "hex");
     const builder = new TransactionBuilderABI([new HexString(publishBalanceABIs).toUint8Array()])
     const payload = builder.buildTransactionPayload(
@@ -33,7 +34,7 @@ export async function publishBalance(account: AptosAccount) {
     if (balanceResourcesOfAccount.length > 0) {
         console.log(JSON.stringify(balanceResourcesOfAccount[0]));
     }
-
+    console.log(`--------------------------------------------------`);
 }
 async function main() {
     const account = await loadRandomAccount();

@@ -7,6 +7,7 @@ import {publishBalance} from "../basic-coin/publish_balance";
 import {mint} from "../basic-coin/mint";
 
 export async function transfer(accountFrom: AptosAccount, accountTo: AptosAccount, amount: number) {
+    console.log(`Transfer ${amount} from ${accountFrom.address()} to ${accountTo.address()}`);
     const balanceResource = `${DEPLOYED_ADDRESS}::basic_coin::Balance`;
     let resource = await client.getAccountResource(accountTo.address(), balanceResource);
     console.log(`Balance of account ${accountTo.address()} is ${JSON.stringify(resource['data'])}`);
@@ -30,6 +31,7 @@ export async function transfer(accountFrom: AptosAccount, accountTo: AptosAccoun
     // Check resource, exist now
     resource = await client.getAccountResource(accountTo.address(), balanceResource);
     console.log(`Balance of account ${accountTo.address()} is ${JSON.stringify(resource['data'])}`);
+    console.log(`--------------------------------------------------`);
 }
 
 async function main() {
