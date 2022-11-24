@@ -2,12 +2,16 @@ module GenericAddress::odd_coin {
     use GenericAddress::generic_coin;
     use std::signer;
 
+    const MODULE_OWNER: address = @GenericAddress;
+
     struct OddCoin has drop {}
 
     const ENOT_ODD: u64 = 0;
+    const ENOT_MODULE_OWNER: u64 = 1;
 
-    public fun set_and_mint(account: &signer, amount: u64) {
+    public fun set_and_mint(account: &signer, module_owner: &signer, amount: u64) {
         generic_coin::publish_balance<OddCoin>(account);
+        assert!(signer::address_of(module_owner) == MODULE_OWNER, ENOT_MODULE_OWNER);
         generic_coin::mint<OddCoin>(signer::address_of(account), amount);
     }
 
@@ -16,10 +20,10 @@ module GenericAddress::odd_coin {
         generic_coin::transfer<OddCoin>(from, to, amount);
     }
 
-    #[test(from = @0x42, to = @0x10)]
-    fun test_odd_success(from: signer, to: signer) {
-        set_and_mint(&from, 42);
-        set_and_mint(&to, 10);
+    #[test(from = @0x42, to = @0x10, module_owner = @GenericAddress)]
+    fun test_odd_success(from: signer, to: signer, module_owner: signer) {
+        set_and_mint(&from, &module_owner, 42);
+        set_and_mint(&to, &module_owner, 10);
 
         transfer(&from, @0x10, 7);
 
@@ -27,11 +31,11 @@ module GenericAddress::odd_coin {
         assert!(generic_coin::balance_of<OddCoin>(@0x10) == 17, 1);
     }
 
-    #[test(from = @0x42, to = @0x10)]
+    #[test(from = @0x42, to = @0x10, module_owner = @GenericAddress)]
     #[expected_failure]
-    fun test_not_odg_failure(from: signer, to: signer) {
-        set_and_mint(&from, 42);
-        set_and_mint(&to, 10);
+    fun test_not_odg_failure(from: signer, to: signer, module_owner: signer) {
+        set_and_mint(&from, &module_owner, 42);
+        set_and_mint(&to, &module_owner, 10);
 
         transfer(&from, @0x10, 8);
     }
